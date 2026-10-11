@@ -1,37 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
-const projects = [
-  {
-    year: '2026',
-    type: 'Cloud Architecture',
-    title: 'iam engine',
-    description: 'Serverless Lambda function written in Python that assumes IAM roles across multiple AWS accounts to systematically delete inactive user access keys, login profiles, and users safely.',
-    color: '#FF5C00', // vibrant orange
-    textColor: '#000000', // pure black text
-    link: 'https://github.com/Shaunak-ondare/git-cicd-otp-auth-repo',
-    image: '/iam_engine.png'
-  },
-  {
-    year: '2026',
-    type: 'DevSecOps',
-    title: 'pipeline sec',
-    description: 'Developed and debugged GitHub Actions workflows integrating OWASP Dependency Check. Resolved Java Runtime incompatibilities for maven plugins to enforce strict security gates before deployment.',
-    color: '#fde047', // vibrant yellow
-    textColor: '#000000', // black text for yellow bg
-    link: 'https://github.com/Shaunak-ondare/devsecops-pipeline',
-    image: '/pipeline_sec.png'
-  },
-  {
-    year: '2026',
-    type: 'Infrastructure',
-    title: 'infra auto',
-    description: 'Designed declarative infrastructure as code modules to provision consistent environments across dev, staging, and production using custom modules.',
-    color: '#333333', // dark grey
-    link: 'https://github.com/Shaunak-ondare/terraform-eks-repo',
-    image: '/infra_auto.png'
-  },
-];
+import { engineeringProjects as projects } from '../data/projects';
 
 export const Projects = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -65,8 +35,12 @@ export const Projects = () => {
         </div>
 
         {projects.map((project, index) => (
-          <div 
+          <a
             key={project.title}
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${project.title} — open GitHub repository in a new tab`}
             className={`project-card animate-fade-in delay-${(index % 3) + 1}`}
             style={{ 
               backgroundColor: project.color,
@@ -95,13 +69,13 @@ export const Projects = () => {
               marginBottom: '3rem',
               opacity: 0.8
             }}>
-              <span>[YR:{project.year}]</span>
+              <span>{project.featured ? '[FLAGSHIP]' : `[PROJECT:0${index + 1}]`}</span>
               <span>&lt;TYPE:{project.type}&gt;</span>
             </div>
 
             {/* Title & Arrow */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <h3 style={{ 
+              <h3 className="project-title" style={{
                 fontSize: 'clamp(3rem, 7vw, 6rem)', 
                 fontWeight: 500, 
                 letterSpacing: '-0.04em',
@@ -111,10 +85,8 @@ export const Projects = () => {
                 {project.title}
               </h3>
               
-              <a 
-                href={project.link} 
-                target="_blank" 
-                rel="noreferrer" 
+              <div
+                aria-hidden="true"
                 className="project-arrow-link" 
                 style={{ 
                   color: 'inherit',
@@ -130,10 +102,10 @@ export const Projects = () => {
                 <div className="project-arrow" style={{ transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)' }}>
                   <ArrowRight size={56} strokeWidth={2.5} />
                 </div>
-              </a>
+              </div>
             </div>
 
-            {/* Description placeholder for where the image would go */}
+            {/* Repository-verified description */}
             <div style={{
               marginTop: '4rem',
               maxWidth: '600px',
@@ -145,7 +117,7 @@ export const Projects = () => {
               {project.description}
             </div>
             
-            {/* Mockup Placeholder */}
+            {/* Project visual in the original image slot */}
             <div style={{
               marginTop: '4rem',
               width: '100%',
@@ -160,18 +132,22 @@ export const Projects = () => {
               justifyContent: 'center'
             }}>
               {project.image ? (
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'contain'
-                  }} 
-                />
+                <picture className="project-visual-media">
+                  <source media="(max-width: 767px)" srcSet={project.mobileImage} type="image/svg+xml" />
+                  <img
+                    className="project-visual-image"
+                    src={project.image}
+                    alt={project.imageAlt}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain'
+                    }}
+                  />
+                </picture>
               ) : null}
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </section>

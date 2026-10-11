@@ -1595,3 +1595,68 @@ html.dark .folder-card:hover .folder-card__hint { color: rgba(255, 255, 255, 0.7
     right: 0;
   }
 }
+
+/* Photo-free skills: retain the original typography and spacing system. */
+.skills-categories {
+  grid-column: 1 / 9;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4rem 3rem;
+  padding: 0 2rem;
+}
+
+.skills-categories > div,
+.project-title {
+  min-width: 0;
+}
+
+.skills-categories h3,
+.project-title {
+  overflow-wrap: anywhere;
+}
+
+.project-arrow-link {
+  flex-shrink: 0;
+}
+
+#about {
+  scroll-margin-top: 7rem;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 5px;
+}
+
+@media (max-width: 767px) {
+  .skills-categories {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+  }
+}
+
+/* Only the content inside the original project image containers. */
+#projects .project-visual-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#projects .project-visual-image {
+  transform: scale(1);
+  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1), filter 420ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  #projects .project-visual-media:hover .project-visual-image {
+    transform: scale(1.008);
+    filter: brightness(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #projects .project-visual-image {
+    transition: none;
+  }
+}

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
 const roles = [
-  "building resilient\ninfrastructure",
-  "building devsecops\npipelines",
-  "deploying apps\nin a secure way",
-  "automating cloud\nworkloads"
+  'cloud infrastructure\n& automation',
+  'kubernetes\n& container platforms',
+  'ci/cd, devsecops\n& gitops',
+  'monitoring\n& production reliability'
 ];
 
 export const Hero = () => {
@@ -12,15 +12,19 @@ export const Hero = () => {
   const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
+    let fadeTimeout: ReturnType<typeof setTimeout>;
     const interval = setInterval(() => {
       setIsFading(true);
-      setTimeout(() => {
+      fadeTimeout = setTimeout(() => {
         setRoleIndex((prev) => (prev + 1) % roles.length);
         setIsFading(false);
       }, 500);
     }, 7000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(fadeTimeout);
+    };
   }, []);
 
   return (
@@ -37,10 +41,10 @@ export const Hero = () => {
           opacity: 0.7,
           marginBottom: '8rem'
         }} className="mono-text">
-          <div className="tech-marker" style={{ textTransform: 'none' }}>// INITIATE_SESSION: SHAUNAK</div>
+          <div className="tech-marker" style={{ textTransform: 'none' }}>// INITIATE_SESSION: LAXMAN KUMAR BATTULA</div>
           <div className="tech-marker" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 1, textTransform: 'none' }}>
             <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#00f0ff', boxShadow: '0 0 8px #00f0ff' }}></div>
-            [SYS.READY: NEW_PROJECTS]
+            [CLOUD / DEVOPS / SRE]
           </div>
         </div>
 

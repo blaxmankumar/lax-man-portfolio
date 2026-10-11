@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="440" viewBox="0 0 360 440" role="img" aria-labelledby="title desc">
+  <title id="title">AWS EKS microservices architecture &#8212; mobile layout</title>
+  <desc id="desc">Users connect to AWS ALB Ingress and seven services inside the EKS cluster, backed by RDS PostgreSQL. The separate dashed ECR route provides container images to deployments, not application requests. This is repository configuration, not a live infrastructure screenshot.</desc>
+  <!-- Configuration sources: blaxmankumar/7-Microservice-Project, main 2da068f830183c89b85865e6fee6c8b740ba8633.
+  ARCHITECTURE.md; k8s/ingress.yaml; k8s/{auth,catalog,inventory,order,payment,notification,analytics}.yaml.
+  Solid lines are application traffic. Dashed ECR line supplies deployment images, not request traffic.
+  No live infrastructure status, execution result or metrics are represented. -->
+  
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#142237"/><stop offset="1" stop-color="#0b1320"/></linearGradient>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#142338"/><stop offset="1" stop-color="#0d1828"/></linearGradient>
+    <linearGradient id="cluster" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#102039"/><stop offset="1" stop-color="#0a1423"/></linearGradient>
+    <radialGradient id="ambient"><stop stop-color="#24518a" stop-opacity=".2"/><stop offset="1" stop-color="#24518a" stop-opacity="0"/></radialGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#7188a4" opacity=".15"/></pattern>
+    <filter id="shadow" x="-30%" y="-40%" width="160%" height="190%"><feDropShadow dx="0" dy="7" stdDeviation="8" flood-color="#000" flood-opacity=".28"/></filter>
+    <filter id="glow" x="-25%" y="-40%" width="150%" height="180%"><feGaussianBlur stdDeviation="10"/></filter>
+    <marker id="request-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1 1L5.5 3.5L1 6" fill="none" stroke="#ff9b58" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <marker id="delivery-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1 1L5.5 3.5L1 6" fill="none" stroke="#5b8cff" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <g id="cube" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M0-12L10.5-6V6L0 12L-10.5 6V-6ZM0 0V12M-10.5-6L0 0L10.5-6M0-12V0"/></g>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif}
+      .ink{fill:#edf4ff}.muted{fill:#9baec6}.node{fill:url(#panel);stroke:#2a3d55;stroke-width:1}
+      .tile{fill:url(#tile);stroke:#29415d;stroke-width:1}.request{fill:none;stroke:#ff9b58;stroke-width:1.8;marker-end:url(#request-arrow)}
+      .delivery{fill:none;stroke:#5b8cff;stroke-width:1.6;stroke-dasharray:5 5;marker-end:url(#delivery-arrow)}
+      .icon{fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+  <rect width="360" height="440" rx="16" fill="#050910"/>
+  <rect width="360" height="440" rx="16" fill="url(#dots)"/>
+  <ellipse cx="180" cy="209" rx="230" ry="220" fill="url(#ambient)"/>
+  <text x="20" y="30" class="ink" font-size="20" font-weight="600">AWS EKS &#183; commerce platform</text>
+
+  <g id="request-routing">
+    <path d="M106 72H139M242 91V111" class="request"/>
+    <rect x="20" y="53" width="86" height="38" rx="10" class="node"/>
+    <text x="63" y="78" class="ink" text-anchor="middle" font-size="20" font-weight="600">Users</text>
+    <rect x="142" y="53" width="198" height="38" rx="10" class="node"/>
+    <path d="M154 54H328" stroke="#ff9b58" stroke-opacity=".5"/>
+    <text x="241" y="78" class="ink" text-anchor="middle" font-size="20" font-weight="600">ALB / Ingress</text>
+  </g>
+
+  <g id="eks-cluster">
+    <rect x="20" y="114" width="320" height="206" rx="14" fill="none" stroke="#4489df" stroke-opacity=".3" stroke-width="4" filter="url(#glow)"/>
+    <rect x="20" y="114" width="320" height="206" rx="14" fill="url(#cluster)" stroke="#365f8c" stroke-width="1.1"/>
+    <text x="36" y="143" class="ink" font-size="20" font-weight="600">EKS cluster</text>
+    <text x="324" y="143" class="muted" text-anchor="end" font-size="18">7 services</text>
+    <g id="service-auth">
+    <rect x="36" y="159" width="138" height="30" rx="7" class="tile"/>
+    <path d="M46 160H164" stroke="#ff9b58" stroke-opacity=".4"/>
+    <text x="105" y="180" class="ink" text-anchor="middle" font-size="18" font-weight="600">Auth</text>
+  </g>
+<g id="service-catalog">
+    <rect x="186" y="159" width="138" height="30" rx="7" class="tile"/>
+    <path d="M196 160H314" stroke="#ff9b58" stroke-opacity=".4"/>
+    <text x="255" y="180" class="ink" text-anchor="middle" font-size="18" font-weight="600">Catalog</text>
+  </g>
+<g id="service-inventory">
+    <rect x="36" y="197" width="138" height="30" rx="7" class="tile"/>
+    <path d="M46 198H164" stroke="#ff9b58" stroke-opacity=".4"/>
+    <text x="105" y="218" class="ink" text-anchor="middle" font-size="18" font-weight="600">Inventory</text>
+  </g>
+<g id="service-order">
+    <rect x="186" y="197" width="138" height="30" rx="7" class="tile"/>
+    <path d="M196 198H314" stroke="#ff9b58" stroke-opacity=".4"/>
+    <text x="255" y="218" class="ink" text-anchor="middle" font-size="18" font-weight="600">Order</text>
+  </g>
+<g id="service-payment">
+    <rect x="36" y="235" width="138" height="30" rx="7" class="tile"/>
+    <path d="M46 236H164" stroke="#ff9b58" stroke-opacity=".4"/>
+    <text x="105" y="256" class="ink" text-anchor="middle" font-size="18" font-weight="600">Payment</text>
+  </g>
+<g id="service-notification">
+    <rect x="186" y="235" width="138" height="30" rx="7" class="tile"/>
+    <path d="M196 236H314" stroke="#ff9b58" stroke-opacity=".4"/>
+    <text x="255" y="256" class="ink" text-anchor="middle" font-size="18" font-weight="600">Notification</text>
+  </g>
+<g id="service-analytics">
+    <rect x="36" y="273" width="288" height="30" rx="7" class="tile"/>
+    <path d="M46 274H314" stroke="#ff9b58" stroke-opacity=".4"/>
+    <text x="180" y="294" class="ink" text-anchor="middle" font-size="18" font-weight="600">Analytics</text>
+  </g>
+  </g>
+
+  <g id="registry-and-data">
+    <path d="M267 320V357" class="request"/>
+    <path d="M32 360V330H9V139H17" class="delivery"/>
+    <text x="52" y="351" fill="#91adff" font-size="17">Image pull</text>
+    <rect x="20" y="360" width="136" height="64" rx="12" class="node"/>
+    <path d="M32 361H144" stroke="#5b8cff" stroke-opacity=".5"/>
+    <text x="88" y="386" class="ink" text-anchor="middle" font-size="20" font-weight="600">Amazon ECR</text>
+    <text x="88" y="411" class="muted" text-anchor="middle" font-size="18">Image registry</text>
+    <rect x="190" y="360" width="150" height="64" rx="12" class="node"/>
+    <path d="M202 361H328" stroke="#63e6be" stroke-opacity=".5"/>
+    <text x="265" y="386" class="ink" text-anchor="middle" font-size="20" font-weight="600">Amazon RDS</text>
+    <text x="265" y="411" class="muted" text-anchor="middle" font-size="18">PostgreSQL</text>
+  </g>
+</svg>
