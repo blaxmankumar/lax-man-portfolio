@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480" role="img" aria-labelledby="title desc">
+  <title id="title">RKE2 Kubernetes infrastructure configuration</title>
+  <desc id="desc">Repository configuration: HAProxy routes requests to Kong NodePorts 30169 and 30386 or NGINX ingress on ports 80 and 443 across three RKE2 server nodes. Ansible provisions the servers. Argo CD defines platform Gateway synchronization. NGINX Gateway Fabric is a separate Gateway API add-on, not the configured HAProxy request target.</desc>
+  <!-- Source: github.com/blaxmankumar/rke2-project, main @ 11043d0c9305f4c08a545a62c772a4b89f76c9b7.
+       Evidence: haproxy/dev/haproxy.cfg; ansible/inventory/dev.ini;
+       ansible/roles/rke2_primary/tasks/main.yml; ansible/roles/rke2_join/tasks/main.yml;
+       ansible/roles/gateway_api/defaults/main.yml; ansible/roles/gateway_api/templates/nginx-gateway-fabric.yaml.j2;
+       argocd/application-platform.yaml; platform/gateway/gateway.yaml. -->
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101b2c"/><stop offset="1" stop-color="#0a111e"/></linearGradient>
+    <linearGradient id="cluster-panel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#101b2c"/><stop offset="1" stop-color="#080f1b"/></linearGradient>
+    <radialGradient id="ambient"><stop stop-color="#5b8cff" stop-opacity=".12"/><stop offset="1" stop-color="#5b8cff" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#9baec6" stroke-opacity=".045" stroke-width="1"/></pattern>
+    <filter id="route-glow" x="-20%" y="-100%" width="140%" height="300%"><feGaussianBlur stdDeviation="3"/></filter>
+    <marker id="request-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1 1L5 3.5L1 6" fill="none" stroke="#fde047" stroke-width="1.5"/></marker>
+    <marker id="provision-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1 1L5 3.5L1 6" fill="none" stroke="#38d9f5" stroke-width="1.5"/></marker>
+    <marker id="gitops-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1 1L5 3.5L1 6" fill="none" stroke="#5b8cff" stroke-width="1.5"/></marker>
+    <g id="server-icon" fill="none" stroke="#fde047" stroke-width="1.5" stroke-linecap="round"><rect width="24" height="29" rx="4"/><path d="M6 8H18M6 15H18M6 22H12"/></g>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#edf4ff}
+      .title{font-size:25px;font-weight:600;letter-spacing:-.3px}
+      .name{font-size:23px;font-weight:600;letter-spacing:-.2px}
+      .meta{font-size:18px;fill:#9baec6}
+      .panel{fill:url(#panel);stroke:#31415a;stroke-width:1}
+      .request{fill:none;stroke:#fde047;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+      .provision{fill:none;stroke:#38d9f5;stroke-width:1.8;stroke-dasharray:5 6;stroke-linejoin:round}
+      .gitops{fill:none;stroke:#5b8cff;stroke-width:1.8;stroke-dasharray:5 6;stroke-linejoin:round}
+    </style>
+  </defs>
+  <rect width="1200" height="480" fill="#050910"/>
+  <rect width="1200" height="480" fill="url(#grid)"/>
+  <ellipse cx="717" cy="246" rx="420" ry="230" fill="url(#ambient)"/>
+  <g id="diagram-heading">
+    <path d="M32 23V42M39 23V42" stroke="#fde047" stroke-width="3" stroke-linecap="round"/>
+    <text x="54" y="40" class="title">RKE2 / Kubernetes infrastructure</text>
+    <text x="1168" y="38" class="meta" text-anchor="end">Repository configuration</text>
+    <path d="M32 58H1168" stroke="#243148" stroke-width="1"/>
+  </g>
+  <g id="request-routes">
+    <path d="M238 191H512" class="request" stroke-opacity=".3" stroke-width="5" filter="url(#route-glow)"/>
+    <path d="M238 191H510" class="request" marker-end="url(#request-arrow)"/>
+    <text x="375" y="174" class="meta" text-anchor="middle">HTTP / HTTPS</text>
+  </g>
+  <g id="haproxy-node">
+    <rect x="32" y="143" width="206" height="118" rx="16" class="panel"/>
+    <path d="M48 143H222" stroke="#fde047" stroke-opacity=".65"/>
+    <g fill="none" stroke="#fde047" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M54 168H69M61.5 168V181M51 181H72M51 181V190M72 181V190"/><circle cx="51" cy="194" r="3"/><circle cx="72" cy="194" r="3"/></g>
+    <text x="87" y="185" class="name">HAProxy</text>
+    <text x="54" y="225" class="meta">Edge routing</text>
+    <path d="M54 240H214" stroke="#25354c"/>
+  </g>
+  <g id="rke2-cluster">
+    <rect x="486" y="74" width="458" height="355" rx="16" fill="url(#cluster-panel)" stroke="#fde047" stroke-opacity=".35" stroke-width="1.2"/>
+    <path d="M503 74H927" stroke="#fde047" stroke-opacity=".75"/>
+    <text x="512" y="109" class="title">RKE2 cluster</text>
+    <text x="918" y="108" class="meta" text-anchor="end">3 server nodes</text>
+    <g id="cluster-ingress">
+      <rect x="512" y="142" width="406" height="96" rx="12" fill="#0a1424" stroke="#3b4b63"/>
+      <text x="532" y="165" class="meta">Ingress layer</text>
+      <path d="M715 178V225" stroke="#31415a"/>
+      <text x="614" y="195" class="name" text-anchor="middle">Kong</text>
+      <text x="614" y="220" class="meta" text-anchor="middle">30169 / 30386</text>
+      <text x="816" y="195" class="name" text-anchor="middle">NGINX</text>
+      <text x="816" y="220" class="meta" text-anchor="middle">80 / 443</text>
+    </g>
+    <g id="cluster-request-fanout">
+      <path d="M715 239V255H572V276M715 255V276M715 255H858V276" class="request" marker-end="url(#request-arrow)"/>
+      <circle cx="715" cy="255" r="3.5" fill="#fde047"/>
+    </g>
+    <g id="rke2-server-01">
+      <rect x="512" y="279" width="120" height="70" rx="12" class="panel"/>
+      <use href="#server-icon" x="530" y="291"/>
+      <text x="578" y="314" class="name">01</text>
+      <text x="572" y="338" class="meta" text-anchor="middle">RKE2 server</text>
+    </g>
+    <g id="rke2-server-02">
+      <rect x="655" y="279" width="120" height="70" rx="12" class="panel"/>
+      <use href="#server-icon" x="673" y="291"/>
+      <text x="721" y="314" class="name">02</text>
+      <text x="715" y="338" class="meta" text-anchor="middle">RKE2 server</text>
+    </g>
+    <g id="rke2-server-03">
+      <rect x="798" y="279" width="120" height="70" rx="12" class="panel"/>
+      <use href="#server-icon" x="816" y="291"/>
+      <text x="864" y="314" class="name">03</text>
+      <text x="858" y="338" class="meta" text-anchor="middle">RKE2 server</text>
+    </g>
+    <g id="gateway-api-addon">
+      <text x="512" y="374" class="meta">Separate Gateway API add-on</text>
+      <rect x="512" y="385" width="406" height="30" rx="9" fill="#101c31" stroke="#5b8cff" stroke-opacity=".65"/>
+      <path d="M527 400L533 394L539 400L533 406Z" fill="none" stroke="#5b8cff" stroke-width="1.5"/>
+      <text x="729" y="407" font-size="20" text-anchor="middle">NGINX Gateway Fabric</text>
+    </g>
+  </g>
+  <g id="ansible-management">
+    <path d="M988 154H968V313H944" class="provision" marker-end="url(#provision-arrow)"/>
+    <rect x="988" y="104" width="180" height="103" rx="16" class="panel"/>
+    <g fill="none" stroke="#38d9f5" stroke-width="1.7" stroke-linecap="round"><path d="M1009 125H1029M1009 133H1029M1009 141H1029"/><circle cx="1016" cy="125" r="3" fill="#101b2c"/><circle cx="1023" cy="133" r="3" fill="#101b2c"/><circle cx="1014" cy="141" r="3" fill="#101b2c"/></g>
+    <text x="1042" y="141" class="name">Ansible</text>
+    <text x="1009" y="180" class="meta">Provisioning</text>
+  </g>
+  <g id="argocd-management">
+    <path d="M988 303H978V400H921" class="gitops" marker-end="url(#gitops-arrow)"/>
+    <rect x="988" y="252" width="180" height="103" rx="16" class="panel"/>
+    <g fill="none" stroke="#5b8cff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M1010 276A10 10 0 0 1 1028 275L1031 280M1031 271V280H1022M1030 287A10 10 0 0 1 1012 288L1009 283M1009 292V283H1018"/></g>
+    <text x="1042" y="289" class="name">Argo CD</text>
+    <text x="1009" y="328" class="meta">Platform sync</text>
+  </g>
+  <g id="route-legend">
+    <path d="M32 455H66" class="request"/>
+    <text x="78" y="461" class="meta">Request routing</text>
+    <path d="M281 455H315" class="provision"/>
+    <text x="327" y="461" class="meta">Provisioning</text>
+    <path d="M507 455H541" class="gitops"/>
+    <text x="553" y="461" class="meta">Declarative configuration</text>
+  </g>
+</svg>

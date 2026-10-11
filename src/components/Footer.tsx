@@ -1,6 +1,6 @@
 
 
-import { Github, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Github, Mail } from 'lucide-react';
 
 export const Footer = () => {
   return (
@@ -10,7 +10,7 @@ export const Footer = () => {
         {/* Logo/Name */}
         <div className="footer-logo">
           <span style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', opacity: 0.6 }}>
-            .shaunak
+            Laxman Kumar Battula
           </span>
         </div>
 
@@ -24,10 +24,8 @@ export const Footer = () => {
 
         {/* Social Icons */}
         <div className="footer-social">
-          <a href="https://github.com/Shaunak-ondare" target="_blank" rel="noopener noreferrer" className="nav-link" aria-label="GitHub"><Github size={18} /></a>
-          <a href="https://x.com/vibeinloop" target="_blank" rel="noopener noreferrer" className="nav-link" aria-label="Twitter"><Twitter size={18} /></a>
-          <a href="https://www.instagram.com/shaunak.ondare/" target="_blank" rel="noopener noreferrer" className="nav-link" aria-label="Instagram"><Instagram size={18} /></a>
-          <a href="https://www.linkedin.com/in/shaunak-ondare20/" target="_blank" rel="noopener noreferrer" className="nav-link" aria-label="LinkedIn"><Linkedin size={18} /></a>
+          <a href="https://github.com/blaxmankumar" target="_blank" rel="noopener noreferrer" className="nav-link" aria-label="Laxman Kumar Battula on GitHub"><Github size={18} /></a>
+          <a href="mailto:laxmankumarbattula04@gmail.com" className="nav-link" aria-label="Email Laxman Kumar Battula"><Mail size={18} /></a>
         </div>
 
       </div>

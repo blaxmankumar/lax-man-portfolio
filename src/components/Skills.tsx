@@ -1,25 +1,36 @@
 import { useEffect, useRef, useState } from 'react';
+import { About } from './About';
 
 const skills = [
   {
     date: '01',
-    title: 'Cloud & Infrastructure',
-    description: 'AWS, Docker, Kubernetes, Terraform'
+    title: 'Cloud Platforms',
+    description: 'AWS, Azure, EKS, AKS'
   },
   {
     date: '02',
-    title: 'CI/CD Pipelines',
-    description: 'GitHub Actions, Jenkins, Gitlab CI'
+    title: 'Infrastructure Automation',
+    description: 'Terraform, Ansible'
   },
   {
     date: '03',
-    title: 'Programming',
-    description: 'Python, JavaScript, Bash, Go'
+    title: 'Containers & Kubernetes',
+    description: 'Docker, Kubernetes, RKE2, Helm'
   },
   {
     date: '04',
-    title: 'Security & Monitoring',
-    description: 'SonarQube, IAM, Datadog, Prometheus'
+    title: 'CI/CD & GitOps',
+    description: 'Jenkins, GitHub Actions, Argo CD'
+  },
+  {
+    date: '05',
+    title: 'DevSecOps & Monitoring',
+    description: 'SonarQube, Trivy, Prometheus, Grafana'
+  },
+  {
+    date: '06',
+    title: 'Linux & Scripting',
+    description: 'Linux, Bash, Python'
   }
 ];
 
@@ -42,7 +53,7 @@ export const Skills = () => {
   }, []);
 
   return (
-    <section id="skills" ref={sectionRef} style={{ padding: '8rem 0', position: 'relative' }}>
+    <section id="skills" ref={sectionRef} aria-label="Engineering skills" style={{ padding: '8rem 0', position: 'relative' }}>
       <div className="container" style={{ position: 'relative' }}>
         
         {/* Top Metadata Row */}
@@ -57,23 +68,14 @@ export const Skills = () => {
           <div>// SYS.SKILLS_</div>
         </div>
 
-        {/* Content Wrapper */}
-        <div style={{
-          gridColumn: '1 / 9',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(8, 1fr)',
-          padding: '0 2rem'
-        }}>
-          
-          {/* Left Column (Skills List) */}
-          <div style={{ gridColumn: '1 / 6', paddingRight: '4rem' }}>
+        <About />
+        <div className="skills-categories">
             {skills.map((skill, index) => (
               <div 
                 key={skill.title} 
-                className={`animate-fade-in delay-${(index % 3) + 1}`}
+                className={isVisible ? `animate-fade-in delay-${(index % 3) + 1}` : undefined}
                 style={{ 
-                  opacity: isVisible ? 1 : 0,
-                  marginBottom: '5rem'
+                  opacity: isVisible ? 1 : 0
                 }}
               >
                 <h3 style={{
@@ -90,47 +92,14 @@ export const Skills = () => {
                   fontSize: '0.9rem',
                   opacity: 0.6,
                   display: 'flex',
+                  alignItems: 'baseline',
                   gap: '1rem'
                 }}>
-                  <span>[{skill.date}]</span>
+                  <span aria-hidden="true">[{skill.date}]</span>
                   <span>{skill.description}</span>
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Right Column (Image Placeholder) */}
-          <div style={{ gridColumn: '6 / 9' }}>
-            <div style={{
-              width: '100%',
-              aspectRatio: '3/4',
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid var(--color-border)',
-              position: 'sticky',
-              top: '8rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'rgba(255,255,255,0.3)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.85rem'
-            }}>
-<img 
-                src="/portrait.jpg" 
-                alt="Shaunak Portrait" 
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  filter: 'grayscale(20%) contrast(110%)',
-                  transition: 'filter 0.3s ease'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.filter = 'grayscale(0%) contrast(100%)'}
-                onMouseLeave={(e) => e.currentTarget.style.filter = 'grayscale(20%) contrast(110%)'}
-              />
-            </div>
-          </div>
-
         </div>
       </div>
     </section>

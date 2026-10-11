@@ -34,7 +34,7 @@ export const Contact = () => {
             maxWidth: '100%',
             margin: 0
           }}>
-            i'm open for freelance projects, feel free to email me to see how can we collaborate
+            let’s talk about cloud infrastructure, automation, and reliable production systems
           </h2>
         </div>
 
@@ -46,7 +46,7 @@ export const Contact = () => {
           justifyContent: 'flex-end'
         }}>
           <a 
-            href="mailto:shaunakondare999@gmail.com" 
+            href="mailto:laxmankumarbattula04@gmail.com"
             className="contact-btn"
             style={{
               display: 'inline-flex',
@@ -67,7 +67,7 @@ export const Contact = () => {
             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)'}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
           >
-            contact me 
+            email me
             <div className="contact-arrow" style={{ transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)', display: 'flex' }}>
               <ArrowRight size={16} />
             </div>

@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480" role="img" aria-labelledby="snake-title snake-desc">
+  <title id="snake-title">Snake Game DevOps — repository-defined workflow</title>
+  <desc id="snake-desc">The Jenkinsfile defines Terraform init, validate, plan and apply stages for AWS VPC and EC2 infrastructure, then SSH deployment using Docker Compose on EC2. The Compose configuration defines NGINX, frontend and backend services. Independent Kubernetes manifests define NGINX Ingress and frontend and backend Services; Jenkins does not deploy them. These are source definitions, not evidence of successful execution.</desc>
+  <!-- Source: blaxmankumar/snake-game-app, main at 7691d78491ad8e4a7a27fe2e524d359e7b30b421.
+       Workflow: jenkinsfile; infrastructure: terraform/main.tf and terraform/modules/{vpc,ec2}/main.tf.
+       Service names: docker-compose.yml and nginx.conf. Independent configuration: k8s/ingress.yaml,
+       k8s/{frontend,backend}-{deployment,service}.yaml. Jenkins clones upstream ketankakde/snake-game-application.
+       No run status, installation completeness or live deployment is asserted. -->
+  <defs>
+    <linearGradient id="snake-panel" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#101b2c"/><stop offset="1" stop-color="#0a111e"/>
+    </linearGradient>
+    <radialGradient id="snake-ambient">
+      <stop stop-color="#38d9f5" stop-opacity=".1"/><stop offset="1" stop-color="#38d9f5" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="snake-topline">
+      <stop stop-color="#38d9f5" stop-opacity=".8"/><stop offset="1" stop-color="#5b8cff" stop-opacity=".08"/>
+    </linearGradient>
+    <filter id="snake-shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity=".35"/>
+    </filter>
+    <filter id="snake-glow" x="-50%" y="-100%" width="200%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <marker id="snake-cyan-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M1 1L7 4L1 7" fill="none" stroke="#38d9f5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="snake-green-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M1 1L7 4L1 7" fill="none" stroke="#63e6be" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="snake-muted-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M1 1L7 4L1 7" fill="none" stroke="#9baec6" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      text{font-family:Inter,Segoe UI,Arial,sans-serif;fill:#edf4ff}
+      .node-title{font-size:24px;font-weight:600;letter-spacing:-.4px}
+      .service-title{font-size:22px;font-weight:600}
+      .body{font-size:18px;fill:#9baec6}
+      .lane-title{font-size:20px;font-weight:600}
+      .panel{fill:url(#snake-panel);stroke:#29435b;stroke-width:1.2}
+      .inset{fill:#08121f;stroke:#223a50;stroke-width:1}
+      .cyan-line{fill:none;stroke:#38d9f5;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+      .green-line{fill:none;stroke:#63e6be;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+  <rect width="1200" height="480" fill="#050910"/>
+  <ellipse cx="492" cy="194" rx="560" ry="290" fill="url(#snake-ambient)"/>
+  <path d="M30 64H1170" stroke="#18283b" stroke-width="1"/>
+  <text x="30" y="39" class="node-title">Jenkinsfile: defined workflow</text>
+  <text x="1170" y="39" class="body" text-anchor="end">Source configuration · execution not verified</text>
+
+  <!-- The provisioning and SSH deployment edges originate at their Jenkins stages. -->
+  <path d="M230 213H303" class="cyan-line" marker-end="url(#snake-cyan-arrow)"/>
+  <path d="M545 164H618" class="cyan-line" marker-end="url(#snake-cyan-arrow)"/>
+  <text x="582" y="151" class="body" text-anchor="middle">create</text>
+  <path d="M230 300H303" class="green-line" marker-end="url(#snake-green-arrow)"/>
+  <text x="267" y="286" class="body" text-anchor="middle">SSH</text>
+  <path d="M901 228V258" class="cyan-line" marker-end="url(#snake-cyan-arrow)"/>
+  <text x="917" y="248" class="body">hosts app</text>
+
+  <g filter="url(#snake-shadow)">
+    <rect x="30" y="99" width="200" height="255" rx="16" class="panel"/>
+    <rect x="304" y="99" width="241" height="129" rx="16" class="panel"/>
+    <rect x="619" y="99" width="551" height="129" rx="16" class="panel"/>
+    <rect x="304" y="259" width="866" height="95" rx="16" class="panel"/>
+  </g>
+  <path d="M47 100H213M321 100H528M636 100H1153M321 260H1153" stroke="url(#snake-topline)" stroke-width="1.5"/>
+  <path d="M32 119V152" stroke="#38d9f5" stroke-width="3" stroke-linecap="round" opacity=".35" filter="url(#snake-glow)"/>
+  <path d="M32 119V152" stroke="#38d9f5" stroke-width="2" stroke-linecap="round"/>
+
+  <text x="50" y="135" class="node-title">Jenkins</text>
+  <text x="50" y="163" class="body">SCM checkout</text>
+  <rect x="48" y="181" width="164" height="60" rx="12" class="inset"/>
+  <text x="64" y="205" class="service-title">Provision</text>
+  <text x="64" y="229" class="body">Terraform</text>
+  <rect x="48" y="258" width="164" height="78" rx="12" class="inset"/>
+  <text x="64" y="285" class="service-title">Deploy app</text>
+  <text x="64" y="312" class="body">SSH to EC2</text>
+
+  <text x="327" y="135" class="node-title">Terraform</text>
+  <path d="M327 146H371" stroke="#5b8cff" stroke-width="2" stroke-linecap="round"/>
+  <text x="327" y="171" class="body">init · validate</text>
+  <text x="327" y="201" class="body">plan · apply</text>
+
+  <text x="641" y="135" class="node-title">AWS infrastructure</text>
+  <text x="1148" y="135" font-size="18" font-weight="600" fill="#f4a261" text-anchor="end" style="fill:#f4a261">AWS</text>
+  <rect x="641" y="153" width="239" height="56" rx="12" class="inset"/>
+  <text x="657" y="178" class="service-title">VPC</text>
+  <text x="657" y="200" class="body">Public subnet · routing</text>
+  <rect x="896" y="153" width="252" height="56" rx="12" class="inset"/>
+  <text x="912" y="178" class="service-title">EC2</text>
+  <text x="912" y="200" class="body">Public IP · security group</text>
+
+  <text x="327" y="297" class="node-title">Docker Compose on EC2</text>
+  <text x="327" y="326" class="body">SSH deployment definition</text>
+  <rect x="666" y="277" width="139" height="59" rx="12" class="inset"/>
+  <rect x="818" y="277" width="143" height="59" rx="12" class="inset"/>
+  <rect x="974" y="277" width="174" height="59" rx="12" class="inset"/>
+  <text x="682" y="302" class="service-title">NGINX</text>
+  <text x="682" y="326" class="body">proxy · :80</text>
+  <text x="834" y="302" class="service-title">frontend</text>
+  <text x="834" y="326" class="body">UI · :80</text>
+  <text x="990" y="302" class="service-title">backend</text>
+  <text x="990" y="326" class="body">API · :5000</text>
+
+  <!-- Independent checked-in configuration, with no Jenkins deployment edge. -->
+  <rect x="30" y="388" width="1140" height="66" rx="16" fill="#09111d" stroke="#52647e" stroke-width="1.2" stroke-dasharray="5 6"/>
+  <text x="50" y="414" class="lane-title">Separate Kubernetes manifests</text>
+  <text x="50" y="441" class="body">Configuration only · not a Jenkins stage</text>
+  <text x="568" y="428" class="lane-title" style="fill:#9baec6">NGINX Ingress</text>
+  <path d="M736 421H796" fill="none" stroke="#9baec6" stroke-width="1.3" stroke-dasharray="4 5" marker-end="url(#snake-muted-arrow)" opacity=".75"/>
+  <text x="815" y="428" class="lane-title" style="fill:#9baec6">Frontend + backend Services</text>
+</svg>
